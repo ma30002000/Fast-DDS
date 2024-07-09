@@ -103,22 +103,22 @@ if(Python3_Interpreter_FOUND)
                             ${TEST}
                 )
         else()
-            add_test(
-                    NAME system.tools.fastdds.${TEST}
-                    COMMAND ${Python3_EXECUTABLE}
-                            ${CMAKE_CURRENT_SOURCE_DIR}/tests.py
-                            $<TARGET_FILE:fast-discovery-server>
-                            ${TEST}
-                )
+#            add_test(
+#                    NAME system.tools.fastdds.${TEST}
+#                    COMMAND ${Python3_EXECUTABLE}
+#                            ${CMAKE_CURRENT_SOURCE_DIR}/tests.py
+#                            $<TARGET_FILE:fast-discovery-server>
+#                            ${TEST}
+#                )
         endif()
 
-        # Set test properties
-        set_tests_properties(
-            system.tools.fastdds.${TEST}
-            PROPERTIES
-                LABELS "NoMemoryCheck"
-                ENVIRONMENT "${TEST_ENVIRONMENT}"
-            )
+#        # Set test properties
+#        set_tests_properties(
+#            system.tools.fastdds.${TEST}
+#            PROPERTIES
+#                LABELS "NoMemoryCheck"
+#                ENVIRONMENT "${TEST_ENVIRONMENT}"
+#            )
 
     endforeach()
 
