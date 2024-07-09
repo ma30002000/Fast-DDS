@@ -106,6 +106,7 @@ class FastDDSConan(ConanFile):
     def build_requirements(self):
         if Version(self.version) >= "2.7.0":
             self.tool_requires("cmake/[>=3.16.3 <4]")
+        self.test_requires("gtest/[~1]")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -118,6 +119,13 @@ class FastDDSConan(ConanFile):
         tc.variables["EPROSIMA_INSTALLER_MINION"] = False
         if is_msvc(self):
             tc.variables["USE_MSVC_RUNTIME_LIBRARY_DLL"] = not is_msvc_static_runtime(self)
+
+        tc.variables["PERFORMANCE_TESTS"] = True
+        tc.variables["SYSTEM_TESTS"] = True
+        tc.variables["PROFILING_TESTS"] = True
+        tc.variables["EPROSIMA_BUILD_TESTS"] = True
+        tc.variables["FASTDDS_EXAMPLE_TESTS"] = True
+
         tc.generate()
         tc = CMakeDeps(self)
         tc.generate()
