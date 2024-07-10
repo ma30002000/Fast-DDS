@@ -274,7 +274,9 @@ bool DataReaderHistory::received_change_keep_last(
         {
             // Try to substitute the oldest sample.
             CacheChange_t* first_change = instance_changes.at(0);
-            if (a_change->sourceTimestamp >= first_change->sourceTimestamp)
+            if (a_change->writerGUID == first_change->writerGUID ?
+                a_change->sequenceNumber >= first_change->sequenceNumber :
+                a_change->sourceTimestamp >= first_change->sourceTimestamp)
             {
                 // As the instance is ordered by source timestamp, we can always remove the first one.
                 ret_value = remove_change_sub(first_change);
@@ -808,7 +810,9 @@ bool DataReaderHistory::completed_change_keep_last(
     {
         // Try to substitute the oldest sample.
         CacheChange_t* first_change = instance_changes.at(0);
-        if (change->sourceTimestamp >= first_change->sourceTimestamp)
+        if (change->writerGUID == first_change->writerGUID ?
+            change->sequenceNumber >= first_change->sequenceNumber :
+            change->sourceTimestamp >= first_change->sourceTimestamp)
         {
             // As the instance is ordered by source timestamp, we can always remove the first one.
             ret_value = remove_change_sub(first_change);
